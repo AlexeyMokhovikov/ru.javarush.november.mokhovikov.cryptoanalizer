@@ -3,15 +3,11 @@ package ru.javarush.cryptoanalizer.utils;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Cypher {
+    private static final String ALPHABET = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
     public Path originFilePath;
-    public Path cypherFilePath;
 
     public void fileChoice() {
 
@@ -19,38 +15,51 @@ public class Cypher {
         Scanner scanner = new Scanner(System.in);
         originFilePath = Path.of(scanner.nextLine());
         String filePathFrom = originFilePath.toString();
-        System.out.println("Куда сохранить файл?");
-        cypherFilePath = Path.of(scanner.nextLine());
-        String filePathTo = cypherFilePath.toString();
-        if (Files.isRegularFile(originFilePath) && Files.isRegularFile(cypherFilePath)) {
+        System.out.println("Вееди ключ (целое число)");
+        int key = scanner.nextInt();
 
-            cypher(filePathFrom, filePathTo);
+        if (Files.isRegularFile(originFilePath)) {
 
-        } else{
+            fileReader(filePathFrom, key);
+
+        } else {
             System.out.println("Упс! Что-то пошло не так! Убедись, что ты указал верный путь");
         }
     }
 
-    private void cypher(String filePathFrom, String filePathTo) {
+    private <key> void fileReader(String filePathFrom, int key) {
         try (BufferedReader fileReader = new BufferedReader(new FileReader(filePathFrom))) {
-            try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(filePathTo))) {
 
-                while (fileReader.ready()) {
-                    char ch = (char) fileReader.read();
-                    fileWriter.write(ch);
-                }
+            while (fileReader.ready()) {
+                String stringChars = fileReader.readLine();
+                cypher(stringChars, key);
             }
 
-        } catch (FileNotFoundException e) {
-            e.getMessage();
         } catch (IOException ex) {
-                ex.getMessage();
-
+            ex.getMessage();
 
         }
+    }
+
+    private void cypher(String chars, int key) {
+        try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter("cypherFile.txt", true))) {
+
+                for (int i = 0; i < chars.length(); i++) {
+                    if (Character.isLetter(chars.charAt(i))){
+                    fileWriter.write((char) ((int) chars.charAt(i) + key));
+                }
+                    else {
+                        fileWriter.write(chars.charAt(i));
+                    }
+                }
+            fileWriter.newLine();
+
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
+
     }
 }
 
 
-
-
+// (.,””:-!? )

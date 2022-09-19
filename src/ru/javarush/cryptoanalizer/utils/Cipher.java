@@ -65,7 +65,7 @@ public class Cipher {
 
     private void encrypt(String chars, int key) {
 
-            try (FileWriter fileWriter = new FileWriter("ciKpherFile.txt", true)) {
+            try (FileWriter fileWriter = new FileWriter("cipherFile.txt", true)) {
                 for (int i = 0; i < chars.length(); i++) {
                     if (Character.isUpperCase(chars.charAt(i))){
                         int charIndex = alphabetUp.indexOf(chars.charAt(i));

@@ -1,6 +1,8 @@
 package ru.javarush.cryptoanalizer.main;
 
-import ru.javarush.cryptoanalizer.utils.Cypher;
+import ru.javarush.cryptoanalizer.utils.BruteForce;
+import ru.javarush.cryptoanalizer.utils.Cipher;
+import ru.javarush.cryptoanalizer.utils.Decipher;
 
 import java.util.Scanner;
 
@@ -18,9 +20,11 @@ public class Main {
             byte choice = scanner.nextByte();
 
             if (choice == 1) {
-                new Cypher().fileChoice();
+                new Cipher().fileChoice();
             } else if (choice == 2) {
-                System.out.println("Выбери файл для дешифровки");
+                new Decipher().fileChoice();
+            } else if (choice == 3) {
+                new BruteForce().fileChoice();
             } else if (choice == 4) {
                 break;
             }

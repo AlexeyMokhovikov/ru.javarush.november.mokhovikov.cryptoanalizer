@@ -9,7 +9,6 @@ import java.nio.file.Path;
 import java.util.Scanner;
 
 public class Decipher {
-
     public Path decipherFilePath;
     Scanner scanner = new Scanner(System.in);
 
@@ -45,7 +44,6 @@ public class Decipher {
             }
         }
     }
-
     private void fileReader(String filePathFrom, int key) {
         try (BufferedReader fileReader = new BufferedReader(new FileReader(filePathFrom))) {
 
@@ -63,30 +61,30 @@ public class Decipher {
 
             for (int i = 0; i < chars.length(); i++) {
                 if (Character.isUpperCase(chars.charAt(i))){
-                    int charIndex = Cipher.alphabetUp.indexOf(chars.charAt(i));
-                    int shiftedIndex = (charIndex - key) % Cipher.alphabetUp.length();
+                    int charIndex = Cipher.ALPHABET.indexOf(chars.charAt(i));
+                    int shiftedIndex = (charIndex - key) % Cipher.ALPHABET.length();
                     if (shiftedIndex < 0){
-                        shiftedIndex = Cipher.alphabetUp.length() + shiftedIndex;
+                        shiftedIndex = Cipher.ALPHABET.length() + shiftedIndex;
                     }
-                    char cypherChar = Cipher.alphabetUp.charAt(shiftedIndex);
+                    char cypherChar = Cipher.ALPHABET.charAt(shiftedIndex);
                     fileWriter.write(cypherChar);
 
                 } else if (Character.isLowerCase(chars.charAt(i))) {
-                    int charIndex = Cipher.alphabetLow.indexOf(chars.charAt(i));
-                    int shiftedIndex = (charIndex - key) % Cipher.alphabetLow.length();
+                    int charIndex = Cipher.ALPHABET.indexOf(chars.charAt(i));
+                    int shiftedIndex = (charIndex - key) % Cipher.ALPHABET.length();
                     if (shiftedIndex < 0){
-                        shiftedIndex = Cipher.alphabetLow.length() + shiftedIndex;
+                        shiftedIndex = Cipher.ALPHABET.length() + shiftedIndex;
                     }
-                    char cypherChar = Cipher.alphabetLow.charAt(shiftedIndex);
+                    char cypherChar = Cipher.ALPHABET.charAt(shiftedIndex);
                     fileWriter.write(cypherChar);
 
-                } else if (!Character.isLetter(chars.charAt(i)) && Cipher.alphabetUp.indexOf(chars.charAt(i)) >= 0) {
-                    int charIndex = Cipher.alphabetUp.indexOf(chars.charAt(i));
-                    int shiftedIndex = (charIndex - key) % Cipher.alphabetUp.length();
+                } else if (!Character.isLetter(chars.charAt(i)) && Cipher.ALPHABET.indexOf(chars.charAt(i)) >= 0) {
+                    int charIndex = Cipher.ALPHABET.indexOf(chars.charAt(i));
+                    int shiftedIndex = (charIndex - key) % Cipher.ALPHABET.length();
                     if (shiftedIndex < 0){
-                        shiftedIndex = Cipher.alphabetUp.length() + shiftedIndex;
+                        shiftedIndex = Cipher.ALPHABET.length() + shiftedIndex;
                     }
-                    char cypherChar = Cipher.alphabetUp.charAt(shiftedIndex);
+                    char cypherChar = Cipher.ALPHABET.charAt(shiftedIndex);
                     fileWriter.write(cypherChar);
 
                 }else {

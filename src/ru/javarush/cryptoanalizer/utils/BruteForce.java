@@ -9,10 +9,8 @@ import java.nio.file.Path;
 import java.util.Scanner;
 
 public class BruteForce {
-
     public Path fileToHack;
     Scanner scanner = new Scanner(System.in);
-
 
     public void fileChoice() {
 
@@ -28,14 +26,13 @@ public class BruteForce {
             System.out.println("Упс! Что-то пошло не так! Убедись, что ты указал верный путь");
         }
     }
-
-    private void fileReader(String filePathFrom) {
-        try (BufferedReader fileReader = new BufferedReader(new FileReader(filePathFrom))) {
-
+    private void fileReader(String cipherFile) {
+        try (BufferedReader fileReader = new BufferedReader(new FileReader(cipherFile))) {
 
                 String stringChars = fileReader.readLine();
                 if (!stringChars.isEmpty()) {
                     bruteForce(stringChars);
+
                 }
 
         } catch (IOException ex) {
@@ -43,7 +40,6 @@ public class BruteForce {
 
         }
     }
-
     private void bruteForce(String chars) {
 
         try (FileWriter fileWriter = new FileWriter("bruteForceFile.txt", true)) {
@@ -52,30 +48,30 @@ public class BruteForce {
                 fileWriter.write("Ключ - " + key + " ");
                 for (int i = 0; i < chars.length(); i++) {
                         if (Character.isUpperCase(chars.charAt(i))) {
-                            int charIndex = Cipher.alphabetUp.indexOf(chars.charAt(i));
-                            int shiftedIndex = (charIndex - key) % Cipher.alphabetUp.length();
+                            int charIndex = Cipher.ALPHABET.indexOf(chars.charAt(i));
+                            int shiftedIndex = (charIndex - key) % Cipher.ALPHABET.length();
                             if (shiftedIndex < 0) {
-                                shiftedIndex = Cipher.alphabetUp.length() + shiftedIndex;
+                                shiftedIndex = Cipher.ALPHABET.length() + shiftedIndex;
                             }
-                            char cypherChar = Cipher.alphabetUp.charAt(shiftedIndex);
+                            char cypherChar = Cipher.ALPHABET.charAt(shiftedIndex);
                             fileWriter.write(cypherChar);
 
                         } else if (Character.isLowerCase(chars.charAt(i))) {
-                            int charIndex = Cipher.alphabetLow.indexOf(chars.charAt(i));
-                            int shiftedIndex = (charIndex - key) % Cipher.alphabetLow.length();
+                            int charIndex = Cipher.ALPHABET.indexOf(chars.charAt(i));
+                            int shiftedIndex = (charIndex - key) % Cipher.ALPHABET.length();
                             if (shiftedIndex < 0) {
-                                shiftedIndex = Cipher.alphabetLow.length() + shiftedIndex;
+                                shiftedIndex = Cipher.ALPHABET.length() + shiftedIndex;
                             }
-                            char cypherChar = Cipher.alphabetLow.charAt(shiftedIndex);
+                            char cypherChar = Cipher.ALPHABET.charAt(shiftedIndex);
                             fileWriter.write(cypherChar);
 
-                        } else if (!Character.isLetter(chars.charAt(i)) && Cipher.alphabetUp.indexOf(chars.charAt(i)) >= 0) {
-                            int charIndex = Cipher.alphabetUp.indexOf(chars.charAt(i));
-                            int shiftedIndex = (charIndex - key) % Cipher.alphabetUp.length();
+                        } else if (!Character.isLetter(chars.charAt(i)) && Cipher.ALPHABET.indexOf(chars.charAt(i)) >= 0) {
+                            int charIndex = Cipher.ALPHABET.indexOf(chars.charAt(i));
+                            int shiftedIndex = (charIndex - key) % Cipher.ALPHABET.length();
                             if (shiftedIndex < 0) {
-                                shiftedIndex = Cipher.alphabetUp.length() + shiftedIndex;
+                                shiftedIndex = Cipher.ALPHABET.length() + shiftedIndex;
                             }
-                            char cypherChar = Cipher.alphabetUp.charAt(shiftedIndex);
+                            char cypherChar = Cipher.ALPHABET.charAt(shiftedIndex);
                             fileWriter.write(cypherChar);
 
                         } else {
@@ -89,5 +85,4 @@ public class BruteForce {
             ex.getMessage();
         }
     }
-
 }

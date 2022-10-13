@@ -12,7 +12,7 @@ public class BruteForce {
     public Path fileToHack;
     Scanner scanner = new Scanner(System.in);
 
-    public void fileChoice() {
+    public void chooseFile() {
 
         System.out.println("Какой файл будем взламывать?");
         fileToHack = Path.of(scanner.nextLine());
@@ -20,13 +20,14 @@ public class BruteForce {
 
         if (Files.isRegularFile(fileToHack)) {
 
-            fileReader(filePathFrom);
+            readFile(filePathFrom);
 
         } else {
             System.out.println("Упс! Что-то пошло не так! Убедись, что ты указал верный путь");
         }
     }
-    private void fileReader(String cipherFile) {
+
+    private void readFile(String cipherFile) {
         try (BufferedReader fileReader = new BufferedReader(new FileReader(cipherFile))) {
 
                 String stringChars = fileReader.readLine();
@@ -40,6 +41,7 @@ public class BruteForce {
 
         }
     }
+
     private void bruteForce(String chars) {
 
         try (FileWriter fileWriter = new FileWriter("bruteForceFile.txt", true)) {

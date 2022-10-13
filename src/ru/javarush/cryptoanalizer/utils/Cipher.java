@@ -11,7 +11,7 @@ public class Cipher {
     private Path originFilePath;
     Scanner scanner = new Scanner(System.in);
 
-    public void fileChoice() {
+    public void chooseFile() {
 
         System.out.println("Выбери файл для шифровки");
         originFilePath = Path.of(scanner.nextLine());
@@ -19,20 +19,21 @@ public class Cipher {
 
         if (Files.isRegularFile(originFilePath)) {
 
-                keyChoice(filePathFrom);
+                chooseKey(filePathFrom);
 
         } else {
             System.out.println("Упс! Что-то пошло не так! Убедись, что ты указал верный путь");
         }
     }
-    public void keyChoice(String filePathFrom) {
+
+    public void chooseKey(String filePathFrom) {
         while (true) {
             try {
                 System.out.println("Введи ключ (целое число)");
                 key = Integer.parseInt(scanner.nextLine());
                 if (key == (int) key && key >= 0) {
 
-                    fileRead(filePathFrom, key);
+                    readFile(filePathFrom, key);
                     break;
 
                 } else {
@@ -44,7 +45,8 @@ public class Cipher {
             }
         }
     }
-    private void fileRead(String filePathFrom, int key) {
+
+    private void readFile(String filePathFrom, int key) {
         try (BufferedReader fileReader = new BufferedReader(new FileReader(filePathFrom))) {
 
             while (fileReader.ready()) {
@@ -57,6 +59,7 @@ public class Cipher {
 
         }
     }
+
     private void encrypt(String chars, int key) {
 
             try (FileWriter fileWriter = new FileWriter("cipherFile.txt", true)) {
@@ -83,6 +86,7 @@ public class Cipher {
                         fileWriter.write(chars.charAt(i));
                     }
                 }
+
                 fileWriter.write("\n");
 
             } catch (IOException ex) {

@@ -20,11 +20,11 @@ public class Main {
             byte choice = scanner.nextByte();
 
             if (choice == 1) {
-                new Cipher().fileChoice();
+                new Cipher().chooseFile();
             } else if (choice == 2) {
-                new Decipher().fileChoice();
+                new Decipher().chooseFile();
             } else if (choice == 3) {
-                new BruteForce().fileChoice();
+                new BruteForce().chooseFile();
             } else if (choice == 4) {
                 break;
             }

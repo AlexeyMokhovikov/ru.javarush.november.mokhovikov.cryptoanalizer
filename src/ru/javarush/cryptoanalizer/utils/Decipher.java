@@ -12,7 +12,7 @@ public class Decipher {
     public Path decipherFilePath;
     Scanner scanner = new Scanner(System.in);
 
-    public void fileChoice() {
+    public void chooseFile() {
 
         System.out.println("Выбери файл для дешифровки");
         decipherFilePath = Path.of(scanner.nextLine());
@@ -20,13 +20,14 @@ public class Decipher {
 
         if (Files.isRegularFile(decipherFilePath)) {
 
-            keyChoice(filePathFrom);
+            chooseKey(filePathFrom);
 
         } else {
             System.out.println("Упс! Что-то пошло не так! Убедись, что ты указал верный путь");
         }
     }
-    private void keyChoice(String filePathFrom) {
+
+    private void chooseKey(String filePathFrom) {
 
         while (true) {
             try {
@@ -34,7 +35,7 @@ public class Decipher {
                 int key = Integer.parseInt(scanner.nextLine());
                 if (key == (int) key && key == Cipher.key && key >= 0) {
 
-                    fileReader(filePathFrom, key);
+                    readFile(filePathFrom, key);
                     break;
 
                 } else System.out.println("Ключ не подходит! Попробуй снова. У тебя осталось две попытки!\uD83D\uDE00");
@@ -44,7 +45,8 @@ public class Decipher {
             }
         }
     }
-    private void fileReader(String filePathFrom, int key) {
+
+    private void readFile(String filePathFrom, int key) {
         try (BufferedReader fileReader = new BufferedReader(new FileReader(filePathFrom))) {
 
             while (fileReader.ready()) {
@@ -55,6 +57,7 @@ public class Decipher {
             ex.getMessage();
         }
     }
+
     private void decrypt(String chars, int key) {
 
         try (FileWriter fileWriter = new FileWriter("decypherFile.txt", true)) {
